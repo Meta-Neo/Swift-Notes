@@ -10,7 +10,7 @@ func test() -> Void {
 }
 test()
 
-// 2.有参无返回值
+// 2.有参无返回值，此时返回值可以省略
 func test1 (name : String) {
     print(name)
 }
@@ -92,6 +92,10 @@ print("\(mathFunction(2, 3))")
  */
 mathFunction = multiplyTwoInts
 print("Result: \(mathFunction(3, 3))")
+// 等同于
+let a : String = "Edwin Javis"
+var b = a
+print(b)
 /**
  anotherMathFunction 被推断为 (Int, Int) -> Int 类型
  */
@@ -129,17 +133,3 @@ print("\(moveNearerToZero(3))")
 func sum(num1 : Float, num2 : Float, num3 : Float) -> Float {
     return num1 + num2 + num3
 }
-
-// MARK: 类
-class Person : NSObject {
-    // 类中所有的属性在对象初始化时,必须有初始化值
-    var name : String?
-    var age : Int = 0
-    var height : Double = 0.0
-}
-let p = Person()
-// 注意:赋值不是调用set方法,直接拿到属性给属性赋值
-p.name = "Javis"
-p.age = 28
-p.height = 1.83
-print(p)

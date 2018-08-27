@@ -40,6 +40,10 @@ let isContain = set.contains("blue")
 let count = set.count
 let isEmpty = set.isEmpty
 let arr1 = set.sorted()
+let arr2 = set.sorted {
+    $0 < $1
+}
+print("arr2：\(arr2)")
 
 
 // MARK: 基本集合操作
@@ -82,3 +86,80 @@ farmAnimals.isDisjoint(with: cityAnimals)
 let fruits: Set = ["apple", "pear", "orange"]
 let result = fruits.filter({ $0.hasSuffix("e") })
 print(result)
+
+/**
+ 集合提供了很多遍历的函数用来对元素进行访问及操作，并大量应用了闭包。
+ 重点需要了解的函数有：forEach、filter、map、reduce
+ */
+// MARK: forEach
+/*
+ 循环遍历集合中的元素，相当于for-in 快速遍历
+ */
+let value1 = [5, 3, 2, 3, 1]
+value1.forEach {
+    print("element is \($0)")
+}
+
+// MARK: map
+/*
+ 函数原型：
+ students.map(<#T##transform: (String) throws -> T##(String) throws -> T#>)
+ 数组映射：对每个元素进行处理，然后组成新数组
+ */
+let value3 = ["0", "12", "name", "hi", "3"]
+let number = value3.map {
+    Int($0) //将元素转换为Int型
+}
+print(number)
+let doubleNum = value3.map {
+    $0 + $0
+}
+print("\(doubleNum)")
+// 注意类型转换可能失败，所以返回的是可选型
+// [Optional(0), Optional(12), nil, nil, Optional(3)]
+
+/*
+ 另外一个相似的函数flatMap，是map的升级版
+ 该函数隐含了两种操作
+ 1.解包
+ 2.展开并合并
+ */
+let flatNumber = value3.compactMap {
+    Int($0)
+}
+print("\(flatNumber)")
+//[0, 12, 3]
+
+// MARK: filter
+/*
+ 函数原型: func filter(_ isIncluded: (Element) -> Bool) -> [Element]
+ 按照规则过滤原数组：取出数组中符合条件的元素 重新组成一个新的数组
+ */
+var value2 = [1.5, 10, 4.88, 3.2, 8]
+let res = value2.filter { return $0 > 4 }
+//res符合条件大于4的新数组
+print(res)
+
+// MARK: reduce
+/*
+ 函数原型 reduce(<#T##initialResult: Result##Result#>, <#T##nextPartialResult: (Result, String) throws -> Result##(Result, String) throws -> Result#>)
+ 所有元素的值合并成一个新的值
+ */
+// 数组
+let value4 = [10, 12, 3, 5]
+// reduce 函数第一个参数是返回值的初始化值
+// $0是初始值
+let sum = value4.reduce(0) {
+    print("$0->\($0), $1->\($1)")
+    return $0 + $1
+}
+print("\(sum)")
+// 15
+// 字典
+let stock = [1 : 1, 2 : 2, 3 : 3, 4 : 4, 5 : 5]
+let stockSum = stock.reduce(0) {
+    print("\($0)")
+    print("\($1)")
+    return $0 + $1.key * $1.value
+}
+print("\(stockSum)")
