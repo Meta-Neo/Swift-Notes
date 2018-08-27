@@ -8,7 +8,7 @@ import UIKit
 /// 不可变数组
 let array = ["1", "2", "3", "4", "5", "6", "7"]
 
-/// 可变数组
+/// 声明可变数组
 var arrM = Array<String>()
 var arrM1 = [String]()
 
@@ -36,7 +36,7 @@ let resultM = arrM + arrM1
 /// 不可变字典
 let dict : [String : String] = ["name":"Javis", "age":"28", "height":"1.83"]
 let dict1 : [String : Any] = ["name":"Javis", "age":28, "height":1.83]
-/// 可变字典
+// 声明可变字典
 var dictM = Dictionary<String, Int>()
 var dictM1 = [String : Any]();
 
@@ -71,13 +71,8 @@ for (key, value) in dictM {
 }
 
 /// 合并字典：即使类型一直也不能直接+
-let tempDict : [String : Any] = ["phoneNum" : "+86 110", "sex" : "男"]
+let tempDict : [String : Any] = ["phoneNum" : "+10086", "sex" : "男"]
 
 for (key, value) in tempDict {
     dictM1[key] = value
 }
-
-
-
-
-
