@@ -17,7 +17,7 @@ a = 29;
  在两种类型都匹配的情况下，将优先选择 Double。
  */
 let b : Double = 3.123456789012345;
-let c : Float = 0.30000123;
+let c : Float = 0.123456789;
 print(a, b, c, "hello world")
 /*
  当推断浮点数的类型时，Swift 总是会选择 Double 而不是Float。
