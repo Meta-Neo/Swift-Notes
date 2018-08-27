@@ -26,9 +26,10 @@ var name1 : Optional<String>
 print(name ?? "Edwin Javis")
 name = "Javis"
 // 3.强制解包
-// 此时确定name有值就可以强制解包
+// 此时确定name有值就可以强制解包，一般不使用
 print(name!)
 
+// 4.可选绑定
 /**
  如果可选类型中没有值,那么强制解包程序会崩溃
  强制解包是非常危险的操作:建议在解包前先判断可选类型中是否有值
@@ -36,27 +37,30 @@ print(name!)
 if name != nil {
     print(name!)
 }
-// 4.可选绑定
 /**
  判断name是否有值,如果没有值,则不执行{}
  如果有值,则对可选类型进行解包,并且将解包后的值赋值给前面的常量
  */
-if let temp = name {
-    print(temp)
+if let name = name {
+    print(name)
 }
 
-let urlString = "https://github.com/OmegaGo2014/Swift-notes"
-// 普通写法
-let url : NSURL?
-url = NSURL(string: urlString)
+/**
+ 5.隐式解析可选类型
+ 把想要用作可选的类型的后面的问号（String?）改成感叹号（String!）来声明一个隐式解析可选类型。
+ */
+let possibleString: String? = "可选类型."
+let forcedString: String = possibleString! // 需要感叹号来获取值
+
+let assumedString: String! = "隐式解析可选类型"
+let implicitString: String = assumedString  // 不需要感叹号
+
+let url : NSURL? = NSURL(string: "https://github.com/OmegaGo2014/Swift-notes")
 if url != nil {
     _ = NSURLRequest(url: url! as URL)
 }
-// 可选绑定
-if let url = url {
+// 简化
+if let url = NSURL(string: "https://github.com/OmegaGo2014/Swift-notes") {
     _ = NSURLRequest(url: url as URL)
 }
-// 可选绑定的简介写法
-if let url = NSURL(string: urlString) {
-    _ = NSURLRequest(url: url as URL)
-}
+
