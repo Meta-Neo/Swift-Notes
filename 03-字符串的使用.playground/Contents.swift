@@ -2,14 +2,23 @@
 
 import UIKit
 
-// 1.声明一个字符串变量
-var str = "Hello, playground"
+// MARK: 多行字符串字面量
+let quotation = """
+"Where shall I begin, please your Majesty?" he asked. \
+"Begin at the beginning," the King said gravely, \
+"and go on till you come to the end; then stop."
+"""
+print("\(quotation)")
 
-// MARK: 遍历字符串
-for c in str {
-    print(c)
+// 1.初始化空字符串
+var emptyString = ""               // 空字符串字面量
+var anotherEmptyString = String()  // 初始化方法，两个字符串均为空并等价。
+
+if emptyString.isEmpty {
+    print("我是一个空字符串")
 }
-// MARK: 字符串的拼接
+
+// MARK: 字符串可变性
 // 1.字符串之间的拼接
 let str1 = "2017年"
 let str2 = "12月18日"
@@ -35,3 +44,20 @@ let header = (urlString as NSString).substring(to: 4)   // 截到第4位
 let middle = (urlString as NSString).substring(with: NSRange(location: 4, length: 5))   // 从第4位开始截，截5个长度
 let footer = (urlString as NSString).substring(from: 10)    // 从0截到第10位
 
+// 5.插入和删除
+var welcome = "hello"
+welcome.insert("!", at: welcome.endIndex)
+// welcome 变量现在等于 "hello!"
+welcome.insert(contentsOf:" there", at: welcome.index(before: welcome.endIndex))
+// welcome 变量现在等于 "hello there!"
+welcome.remove(at: welcome.index(before: welcome.endIndex))
+// welcome 现在等于 "hello there"
+let range = welcome.index(welcome.endIndex, offsetBy: -6)..<welcome.endIndex
+welcome.removeSubrange(range)
+// welcome 现在等于 "hello
+
+// MARK: 遍历字符串
+var str = "Hello"
+for c in str {
+    print(c)
+}
