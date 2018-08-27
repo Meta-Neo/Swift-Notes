@@ -139,6 +139,11 @@ default:
     print("非法操作符")
 }
 /// switch可以判断区间
+/**
+ 1.加了fallthrough后，会直接运行【紧跟的后一个】case或default语句，不论条件是否满足都会执行
+ 2.加了fallthrough语句后，【紧跟的后一个】case条件不能定义常量和变量
+ 3.执行完fallthrough后直接跳到下一个条件语句，本条件执行语句后面的语句不执行
+ */
 let score = 93
 
 switch score {
@@ -150,6 +155,7 @@ case 80..<90:
     print("良好")
 case 90...100:
     print("不错噢")
+    fallthrough
 default:
     print("不合理的分数")
 }
