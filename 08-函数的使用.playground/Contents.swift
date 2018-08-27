@@ -2,8 +2,6 @@
 
 import UIKit
 
-// MARK: 函数
-
 // 1.无参无返回值
 func test() -> Void {
     print("https://github.com/OmegaGo2014/Swift-notes")
@@ -81,7 +79,7 @@ func multiplyTwoInts(_ a: Int, _ b: Int) -> Int {
 func printHelloWorld() {
     print("hello, world")
 }
-// 函数类型的使用
+// 8.1 函数类型的使用
 /**
  ”定义一个叫做 mathFunction 的变量，类型是‘一个有两个 Int 型的参数并返回一个 Int 型的值的函数’，并让这个新变量指向 addTwoInts 函数”。
  */
@@ -101,12 +99,12 @@ print(b)
  */
 let anotherMathFunction = addTwoInts
 
-// 函数类型作为参数类型
+// 8.2 函数类型作为参数类型
 func printMathResult(_ mathFunction: (Int, Int) -> Int, _ a: Int, _ b: Int) {
     print("Result: \(mathFunction(a, b))")
 }
 printMathResult(addTwoInts, 3, 5)
-// 函数类型作为返回值
+// 8.3 函数类型作为返回值
 func stepForward(_ input: Int) -> Int {
     return input + 1
 }
@@ -126,7 +124,7 @@ print("\(chooseStepFunction(backward: currentValue > 0)(3))")
 let moveNearerToZero: (Int) -> Int = chooseStepFunction(backward: currentValue > 0)
 print("\(moveNearerToZero(3))")
 
-// .函数的重载
+// 9.函数的重载
 /**
  函数名称相同，参数不同(1.参数的类型不同 2.参数的个数不同)
  */
