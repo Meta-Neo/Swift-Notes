@@ -14,15 +14,35 @@ print("\(quotation)")
 var emptyString = ""               // 空字符串字面量
 var anotherEmptyString = String()  // 初始化方法，两个字符串均为空并等价。
 
+// 2.遍历字符串
+var str = "Hello"
+for c in str {
+    print(c)
+}
+// 3.判断空字符串
 if emptyString.isEmpty {
     print("我是一个空字符串")
 }
-
+// 4.是否包含
+// 判断开头是否包含
+if str.hasPrefix("H") {
+    print("包含")
+}
+// 判断结尾是否包含
+if str.hasSuffix("o") {
+    print("包含")
+}
+// 5. 字符串的比较
+let str1 = "123 213 321"
+let str2 = "123 321 213"
+if str1 != str2 {
+    print("不相等")
+}
 // MARK: 字符串可变性
 // 1.字符串之间的拼接
-let str1 = "2017年"
-let str2 = "12月18日"
-let result = str1 + str2
+let str3 = "2017年"
+let str4 = "12月18日"
+let result = str3 + str4
 
 // 2.字符串和其他标识符之间的拼接
 let age = 28
@@ -56,8 +76,3 @@ let range = welcome.index(welcome.endIndex, offsetBy: -6)..<welcome.endIndex
 welcome.removeSubrange(range)
 // welcome 现在等于 "hello
 
-// MARK: 遍历字符串
-var str = "Hello"
-for c in str {
-    print(c)
-}
