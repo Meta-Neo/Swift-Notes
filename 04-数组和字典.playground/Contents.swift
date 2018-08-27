@@ -2,13 +2,13 @@
 
 import UIKit
 
-/// 在swift中无论是数组还是字典都是使用[],但是如果[]中存放的是元素,编译器会认为是一个数组.如果[]中存放的是键值对,编译器会认为是一个字典
+// 在swift中无论是数组还是字典都是使用[],但是如果[]中存放的是元素,编译器会认为是一个数组.如果[]中存放的是键值对,编译器会认为是一个字典
 
 // MARK: 数组
-/// 不可变数组
+// 不可变数组
 let array = ["1", "2", "3", "4", "5", "6", "7"]
 
-/// 声明可变数组
+// 声明可变数组
 var arrM = Array<String>()
 var arrM1 = [String]()
 
@@ -21,7 +21,7 @@ arrM.remove(at: 0)
 
 arrM[0] = "-2"
 
-/// 遍历数组
+// 遍历数组
 for i in 0..<arrM.count {
     print(arrM[i])
 }
@@ -33,14 +33,14 @@ let resultM = arrM + arrM1
 
 
 // MARK: 字典
-/// 不可变字典
+// 不可变字典
 let dict : [String : String] = ["name":"Javis", "age":"28", "height":"1.83"]
 let dict1 : [String : Any] = ["name":"Javis", "age":28, "height":1.83]
 // 声明可变字典
 var dictM = Dictionary<String, Int>()
 var dictM1 = [String : Any]();
 
-/// 增删改查
+// 增删改查
 dictM["key"] = 1
 
 dictM1["name"] = "Javis"
@@ -53,24 +53,24 @@ dictM1["age"] = 30
 
 let age : Int =  dictM1["age"] as! Int
 
-/// 字典遍历
-/// 1.遍历所有的key
+// 字典遍历
+// 1.遍历所有的key
 for key in dictM.keys {
     print(key)
 }
 
-/// 2.遍历所有的value
+// 2.遍历所有的value
 for value in dictM.values {
     print(value)
 }
 
-/// 3.遍历所有的key/value
+// 3.遍历所有的key/value
 for (key, value) in dictM {
     print(key)
     print(value)
 }
 
-/// 合并字典：即使类型一直也不能直接+
+// 合并字典：即使类型一直也不能直接+
 let tempDict : [String : Any] = ["phoneNum" : "+10086", "sex" : "男"]
 
 for (key, value) in tempDict {
