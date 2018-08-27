@@ -24,4 +24,5 @@ let (name, age, height, tuple3) = ("Javis", 28, 1.83, ("Javis", 28, 1.83))
 name
 age
 height
+tuple3.0
 tuple3.1
