@@ -99,6 +99,7 @@ case 1:
 default:
     print("其他")
 }
+
 /**
  switch可以不跟()
  case语句结束后可以不跟break，默认系统会加
@@ -152,14 +153,17 @@ case 90...100:
 default:
     print("不合理的分数")
 }
+
 // MARK: for循环
 for i in 0..<10 {
     print(i)
 }
+
 // 如果不需要用到下标值,可以使用_来代替
 for _ in 0..<10 {
     print("hello world")
 }
+
 // MARK: while循环
 /**
  while循环
