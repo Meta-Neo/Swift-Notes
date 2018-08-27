@@ -33,10 +33,10 @@ if str.hasSuffix("o") {
     print("包含")
 }
 // 5. 字符串的比较
-let str1 = "123 213 321"
-let str2 = "123 321 213"
-if str1 != str2 {
-    print("不相等")
+let str1 = "我是谁？"
+let str2 = "我是谁？"
+if str1 == str2 {
+    print("相等")
 }
 // MARK: 字符串可变性
 // 1.字符串之间的拼接
