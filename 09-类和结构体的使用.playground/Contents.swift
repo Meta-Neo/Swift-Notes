@@ -10,6 +10,7 @@ class Student : NSObject {
     // 1.存储属性
     // 如果是对象或者结构体,在没有赋值的情况下通常定义为可选类型
     // 如果是基本属性类型,比如int类型,在没有赋值的情况下,通常直接给一个默认的值0
+    // 类和结构体在创建实例时，必须为所有存储型属性设置合适的初始值。存储型属性的值不能处于一个未知的状态。
     var name : String?
     var age : Int = 0
     var chineseScore : Double = 0.0
@@ -31,12 +32,12 @@ class Student : NSObject {
     var average : Double {
         // 如果计算属性的 setter 没有定义表示新值的参数名，则可以使用默认名称 newValue。
         // 较少写set方法(默认情况下,set方法中有一个系统变量 newValue，新传入的值就再newValue中)
-//        set {
-//            self.average = newValue
-//        }
-//        get {
-//            return (chineseScore + mathScore) * 0.5
-//        }
+        //        set {
+        //            self.average = newValue
+        //        }
+        //        get {
+        //            return (chineseScore + mathScore) * 0.5
+        //        }
         // 简化
         return (chineseScore + mathScore) * 0.5
     }
@@ -188,3 +189,120 @@ print(AudioChannel.maxInputLevelForAllChannels)
  类是引用类型
  与值类型不同，引用类型在被赋予到一个变量、常量或者被传递到一个函数时，其值不会被拷贝。因此，引用的是已存在的实例本身而不是其拷贝。
  */
+
+// MARK: 继承的使用
+// 1.定义一个基类
+// 不继承于其它类的类，称之为基类。
+// Swift 中的类并不是从一个通用的基类继承而来。如果你不为你定义的类指定一个超类的话，这个类就自动成为基类。
+class Superman {
+    /** 名字. */
+    var name: String?
+    /** 能力. */
+    var power: String?
+    /** 年龄. */
+    var age: Int = 0
+    
+    /** 描述. */
+    var description: String? {
+        return ("\(power ?? "超能力")")
+    }
+    func savePeople() -> Void {
+        print("救人")
+    }
+}
+// 2.生成子类
+class Ironman : Superman {
+    /** 是否是神盾局的. */
+    var isShield = true
+    // 重写属性
+    // 可以将一个继承来的只读属性重写为一个读写属性，只需要在重写版本的属性里提供 getter 和 setter 即可。
+    // 但是不可以将一个继承来的读写属性重写为一个只读属性。
+    // 如果你在重写属性中提供了 setter，那么你也一定要提供 getter。
+    // 如果你不想在重写版本中的 getter 里修改继承来的属性值，你可以直接通过super.someProperty来返回继承来的值，其中someProperty是你要重写的属性的名字。
+    override var description: String? {
+        return super.description! + "是我的超能力"
+    }
+    // 重写方法
+    override func savePeople() {
+        print("我飞着去救人")
+    }
+}
+let ironman = Ironman()
+ironman.savePeople()
+
+/**
+ 防止重写
+ 通过把方法，属性或下标标记为final来防止它们被重写，只需要在声明关键字前加上final修饰符即可（例如：final var，final func，final class func，以及final subscript）。
+ 如果重写了带有final标记的方法，属性或下标，在编译时会报错。在类扩展中的方法，属性或下标也可以在扩展的定义里标记为 final 的。
+ 可以通过在关键字class前添加final修饰符（final class）来将整个类标记为 final 的。这样的类是不可被继承的，试图继承这样的类会导致编译报错。
+ */
+final class Friday : Ironman {
+    // 默认构造器
+    override init() {
+        super.init()
+        power = "救人"
+    }
+}
+let friday = Friday()
+print(friday.description!)
+
+class Apple {
+    var color: String?
+    var price: Float
+    
+    init(price: Float) {
+        self.price = price
+    }
+    // 前面有_ 外部不显示变量名
+    init(price: Float, _ color: String) {
+        self.color = color
+        self.price = price
+    }
+}
+let apple = Apple.init(price: 10.0)
+let a = Apple.init(price: 10, "红色")
+
+class Person {
+    var name: String?
+    init(name: String) {
+        self.name = name
+    }
+    // 类的构造器代理规则
+    // 1.为了简化指定构造器和便利构造器之间的调用关系，Swift 采用以下三条规则来限制构造器之间的代理调用：
+    // 2.指定构造器必须调用其直接父类的的指定构造器。
+    // 3.便利构造器必须调用同类中定义的其它构造器。
+    // 4.便利构造器必须最终导致一个指定构造器被调用。
+    // 既指定构造器必须总是向上代理，便利构造器必须总是横向代理
+    
+    // 两段式构造：Swift 中类的构造过程包含两个阶段。第一个阶段，每个存储型属性被引入它们的类指定一个初始值。当每个存储型属性的初始值被确定后，第二阶段开始，它给每个类一次机会，在新实例准备使用之前进一步定制它们的存储型属性。
+    /**
+     阶段 1
+     某个指定构造器或便利构造器被调用。
+     完成新实例内存的分配，但此时内存还没有被初始化。
+     指定构造器确保其所在类引入的所有存储型属性都已赋初值。存储型属性所属的内存完成初始化。
+     指定构造器将调用父类的构造器，完成父类属性的初始化。
+     这个调用父类构造器的过程沿着构造器链一直往上执行，直到到达构造器链的最顶部。
+     当到达了构造器链最顶部，且已确保所有实例包含的存储型属性都已经赋值，这个实例的内存被认为已经完全初始化。此时阶段 1 完成。
+     阶段 2
+     从顶部构造器链一直往下，每个构造器链中类的指定构造器都有机会进一步定制实例。构造器此时可以访问self、修改它的属性并调用实例方法等等。
+     最终，任意构造器链中的便利构造器可以有机会定制实例和使用self。
+     */
+    /** 便利构造器. */
+    convenience init() {
+        self.init(name: "Javis")
+    }
+    /** 必要构造器. */
+    // 在类的构造器前添加required修饰符表明所有该类的子类都必须实现该构造器
+    // 在子类重写父类的必要构造器时，必须在子类的构造器前也添加required修饰符，表明该构造器要求也应用于继承链后面的子类
+    // 在重写父类中必要的指定构造器时，不需要添加override修饰符，但是要添加required修饰符
+}
+class SomeClass {
+    // 如果某个存储型属性的默认值需要一些定制或设置，你可以使用闭包或全局函数为其提供定制的默认值
+    // 每当某个属性所在类型的新实例被创建时，对应的闭包或函数会被调用，而它们的返回值会当做默认值赋值给这个属性
+    // 这种类型的闭包或函数通常会创建一个跟属性类型相同的临时变量，然后修改它的值以满足预期的初始状态，最后返回这个临时变量，作为属性的默认值
+    let someProperty: String = {
+        // 在这个闭包中给 someProperty 创建一个默认值
+        // someValue 必须和 SomeType 类型相同
+        return "Javis"
+    }()
+}
