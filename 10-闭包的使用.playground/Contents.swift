@@ -121,7 +121,6 @@ func post(url : String, succesce : (_ JSONData : String) -> Void) {
 post(url: "https://github.com/OmegaGo2014/Swift-notes") { (JSONData : String) in
     print("\(JSONData)")
 }
-
 // MARK: 逃逸闭包
 /**
  当一个闭包作为参数传到一个函数中，但是这个闭包在函数返回之后才被执行，我们称该闭包从函数中逃逸。
